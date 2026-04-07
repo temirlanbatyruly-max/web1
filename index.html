@@ -3,83 +3,195 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mortgage Calculator</title>
+    <title>Coni Trackt</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap');
         body {
-            background-color: #e3f3fd;
-            font-family: sans-serif;
+            font-family: 'Plus Jakarta Sans',sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            margin: 0;
+            padding: 24px;
+        }
+        header {
             display: flex;
-            justify-content: center;
-            padding: 50px;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 24px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 800;
         }
 
-        .container{
-          background-color: wheat;
-          display: flex;
-          max-width: 800px;
-          border-radius: 20px;
-          overflow: hidden;
+        .logo svg {
+            fill: var(--accent-red);
+            width: 24px;
+            height: 24px;
         }
-
-        .form-side {
-            padding: 40px;
-            width: 50%;
+        .add-item {
+            background-color: var(--accent-red);
+            color: var(--text-light);
+            border:none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
         }
-        .results-side {
-        background-color: black;
-        color:aqua;
-        padding: 40px;
-        width: 50%;
-        }
-
-        input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px;
-            border-radius: 4px;
-        }
-        button {
-            background-color: #d8db2f;
-            border-top: 30px;
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 24px;
             border: none;
-            padding: 15px 30px;
-            border-radius: 30px;
-            font-weight: bold;
-
         }
-        
-        .results-box{
-            background: rgba(0, 0, 0, 0.3);
-            border-top: 4px solid #d8db2f;
-            padding:20px;
-            margin-top: 20px;
+        .stats-grid{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        .card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            padding: 24px;
+            border: 1 px solid var(--border);
+        }
+        .card-stat{
+            color: var(--text-light);
+            font-size: 32px;
+            font-weight: 800;
+            margin: 0;
+        }
+        .card-title{
+            color: var(--text-muted);
+            margin: 0 0 12px 0;
+            font-size: 14px;
+        }
+        .chart-card h2 { margin: 0; font-size: 18px; }
+        .chart-placeholder {
+            height: 180px;
+            background: linear-gradient(180deg, rgba(238, 44, 56, 0.1) 0%, rgba(238, 44, 56, 0.0) 100%);
+            border: 2px dashed rgba(238, 44, 56, 0.5);
             border-radius: 8px;
+            margin-top: 16px;
+            color: var(--accent-red);
+            display: flex; align-items: center; justify-content: center; font-weight: 700;
+        }
+            .session-card h2{
+           margin-bottom: 16px;
+           font-size: 18px;
+        }
+        .session-table{
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        .session-table th {
+            text-align: left;
+            color: var(--text-muted);
+            font-weight: 500;
+            padding: 12px 0;
+            text-transform: uppercase;
+        }
+        .session-table td{
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .session-table tr:last-child td{
+            border-bottom: none;
+        }
+        .status-tag {
+            padding: 4px 10px;
+            border-radius: 100px;
+            font-weight: 700;
+            font-size: 11px;
+            display: inline-block;
         }
 
-        .price-large { color:#d8db2f; font-size: 45px; font-weight: bold;}
+        .tag-prog{ background: rgha(59,130,246,0.1); color: #60A5FA; border: 1px solid #3B82F6;}
+        .tag-comp{ background: rgba(34, 197, 94,0.1);color: #4ADE80; border: 1px solid #22C55E;}
+        .tag-incomp{ background: rgha(239,68,68, 0.1); color: #F87171; border: 1px solid #EF4444;}
     </style>
 </head>
 <body>
-    <div class="form-side">
-        <h1>Mortgage Calculator </h1>
-        <label>Mortgage Amount ($)</label>
-        <input type="number" id="amount" value="300000">
-        <label>Term (Years)</label>
-         <input type="number" id="Term" value="25">
-         <label>Interest Rate(%)</label>
-         <input type="number" id="rate" value="5.25">
-         <buttom onclick="calculate()">Calculate Repayments</buttom>
-    </div>
-    <div class="results-side">
-        <h2>Your results</h2>
-        <p>Your montly repayments are shown below:</p>
-        <div class="results-box">
-            <p>Montly Repayments</p>
-            <div class="price-large" id="out-montly">$1,342.54</div>
-            <hr>
-            <p>Total Repayments</p>
-            <div id="out-total">$543,344.45</div>
+    <header>
+        <div class="logo">
+            <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-132C5.4 15.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3"/></svg>
+                Cogni Track 
         </div>
+        <button class="add-item">+ Add Item</button>
+    </header>
+
+    <main>
+        <div class="dashboard-grid">
+            <div class="card chart-card">
+           </div>
+           <h2>Hours Studied</h2>
+           <div class="chart-placeholder">
+        </div>
+
+        <div class="stats-grid"></div>
+        <div class="card">
+            <p class="card-title">Total Hours Studied</p>
+            <p class="card-stat">57,4h</p>
+        </div>
+        <div class="card">
+            <p class="card-title">Completion Rate</p>
+            <p class="card-stat">54%</p>
+        </div>
+        <div class="card">
+            <p class="card-title">Total Studies</p>
+            <p class="card-stat">13</p>
+        </div>
+        <div class="card">
+            <p class="card-title">Most Studied Categoty</p>
+            <p class="card-stat" style="font-size: 20px;">Programming</p>
+        </div>
+
+        <div class="card session-card">
+            <h2>Study Sessions</h2>
+            <table class="session-table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Category</th>
+                        <th>Time Studied</th>
+                        <th>Completed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>React Fundamentals</td>
+                        <td><span class="status-tag tag-prog">Programming</span></td>
+                        <td>134 Min</td>
+                        <td>In Progress</td>
+                    </tr>
+                    <tr>
+                        <td>Quantum Mechanics</td>
+                        <td><span class="status-tag tag-prog">Mathematics</span></td>
+                        <td>225 Min</td>
+                        <td>In Progress</td>
+                    </tr>
+                       <tr>
+                        <td>Quantum Mechanics</td>
+                        <td><span class="status-tag tag-prog">Mathematics</span></td>
+                        <td>25 Min</td>
+                        <td>Not Completed</td>
+                       </tr>
+                          <tr>
+                        <td>Linear Aigebra</td>
+                        <td><span class="status-tag tag-prog">Language</span></td>
+                        <td>145 Min</td>
+                        <td>Completed</td>
+                          </tr>
+                </tbody>
+            </table>
+        </div>
+        </main>
 </body>
 </html>
