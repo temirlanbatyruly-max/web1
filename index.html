@@ -1,115 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mockup</title>
-    <style>
-        :root{
-            --bg-dark:#000000;
-            --bg-card:#0D0D0D;
-            --accept-red:#EE2C38;
-            --text-light:#FFFFFF; 
-            --text-muted:#8F8F8F;
-            --border:#262626;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Testimonials Grid</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --purple: hsl(263, 55%, 52%);
+      --dark-gray: hsl(217, 19%, 35%);
+      --dark-blue: hsl(219, 29%, 14%);
+      --white: hsl(0, 0%, 100%);
+      --light-gray: hsl(210, 46%, 95%);
+      --text-transparent: rgba(255, 255, 255, 0.7);
+    }
 
-        body{
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-light);
-            margin: 0;
-            padding: 24px;
-        }
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 24px;
-            border-bottom: 1px solid var(--border);
-            margin-bottom: 24px;
-        }
-        .logo{
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 24px;
-            font-weight: 800;
-        }
-        .logo svg{
-            fill: var(--accept-red);
-            width: 24px;
-            height: 24px;
-        }
-        .add-item{
-            background-color: var(--accept-red);
-            color: var(--text-light);
-            border: none;
-            padding: 10px 20px;
-            border-radius: 6px;
-            font-weight: 700;
-            cursor: pointer;
-        } 
-        .dashboard-grid{
-            display: grid;
-            grid-template-columns: 2fr 2fr;
-            gap: 24px;
-            margin-bottom: 24px;
-        }
-        .stats-grid{
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 24px;
-        }
-        .card{
-            background-color: var(--bg-card);
-            border-radius: 12px;
-            padding: 24px;
-            border: 1px solid var(--border);
-        }
-        .card-stat{
-            color: var(--text-light);
-            font-size: 32px;
-            font-weight: 800;
-            margin: 0;
-        }
-        .card-title{
-            color: var(--text-muted);
-            margin: 0 0 12px 0;
-            font-size: 14px;
-        }
-        .chart-card h2{ margin: 0; font-size: 18px;}
-        .chart-placeholder{
-            height: 180px;
-            background: linear-gradient(180deg, rgha(238,44,56, 0.1));
-            border: 2px dashed rgha(238,44,56, 0.5);
-            border-radius: 8px;
-            margin-top: 16px;
-            color: var(--accept-red);
-            display: flex; 
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-        }
-        .session-card h2{ margin-bottom: 16px; font-size: 18px;}
-        .session-table{
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
-        .session-table th{text-align: left;color: var(--text-muted);font-weight: 500;padding: 12px 0; text-transform: uppercase;}
-        .session-table td{padding: 12px 0; border-bottom: 1px solid var(--border);}
-        .status-tag{
-            padding: 4px 10px;
-            border-radius: 100px;
-            font-weight: 700;
-            font-size: 11px;
-            display: inline-block;
-        }
-        .tag-prog{}
-        </style>
+    body {
+      font-family: 'Barlow Semi Condensed', sans-serif;
+      background-color: var(--light-gray);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 40px 20px;
+    }
+
+    .testimonials-grid {
+      display: grid;
+      gap: 24px;
+      max-width: 1110px;
+      /* Define 4 columns for desktop */
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .card {
+      padding: 32px;
+      border-radius: 8px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Individual Card Styles */
+    .card-purple { background-color: var(--purple); color: var(--white); grid-column: span 2; }
+    .card-gray { background-color: var(--dark-gray); color: var(--white); }
+    .card-white { background-color: var(--white); color: var(--dark-gray); }
+    .card-dark-blue { background-color: var(--dark-blue); color: var(--white); grid-column: span 2; }
+    
+    /* The tall card on the right */
+    .card-tall { grid-column: 4; grid-row: span 2; }
+
+    /* Quotation Mark Background */
+    .card-purple::before {
+      content: url('https://raw.githubusercontent.com/fedm-org/front-end-mentor-challenges/main/testimonials-grid-section/images/bg-pattern-quotation.svg');
+      position: absolute;
+      top: 0;
+      right: 15%;
+      z-index: 0;
+    }
+
+    .user { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; position: relative; z-index: 1; }
+    .user img { width: 32px; height: 32px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.3); }
+    .card-white img { border-color: rgba(0,0,0,0.1); }
+    
+    .user-info h3 { font-size: 13px; margin: 0; font-weight: 600; }
+    .user-info p { font-size: 11px; margin: 0; opacity: 0.5; }
+
+    .headline { font-size: 20px; font-weight: 600; line-height: 1.2; margin-bottom: 16px; position: relative; z-index: 1; }
+    .quote { font-size: 13px; line-height: 1.5; opacity: 0.7; position: relative; z-index: 1; }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .card-purple, .card-dark-blue, .card-tall { grid-column: span 1; grid-row: auto; }
+    }
+  </style>
 </head>
 <body>
-    
+
+  <div class="testimonials-grid">
+    <div class="card card-purple">
+      <div class="user">
+        <img src="https://i.pravatar.cc/150?u=daniel" alt="Daniel">
+        <div class="user-info">
+          <h3>Daniel Clifford</h3>
+          <p>Verified Graduate</p>
+        </div>
+      </div>
+      <div class="headline">I received a job offer mid-course, and the subjects I learned were current...</div>
+      <div class="quote">“ I was an EMT for many years before I joined the bootcamp. I’ve been looking to make a transition and have heard some people who had an amazing experience here... ”</div>
+    </div>
+
+    <div class="card card-gray">
+      <div class="user">
+        <img src="https://i.pravatar.cc/150?u=jonathan" alt="Jonathan">
+        <div class="user-info">
+          <h3>Jonathan Walters</h3>
+          <p>Verified Graduate</p>
+        </div>
+      </div>
+      <div class="headline">The team was very supportive and kept me motivated</div>
+      <div class="quote">“ I started as a total newbie with virtually no coding skills. I now work as a mobile engineer for a big company. This was one of the best investments I’ve made in myself. ”</div>
+    </div>
+
+    <div class="card card-white card-tall">
+      <div class="user">
+        <img src="https://i.pravatar.cc/150?u=kira" alt="Kira">
+        <div class="user-info">
+          <h3>Kira Whittle</h3>
+          <p>Verified Graduate</p>
+        </div>
+      </div>
+      <div class="headline">Such a life-changing experience. Highly recommended!</div>
+      <div class="quote">“ Before joining the bootcamp, I’ve never written a line of code. I needed some structure from professionals who can help me learn programming step by step. I was encouraged to enroll by a former student of theirs who can only say wonderful things about the program... ”</div>
+    </div>
+
+    <div class="card card-white">
+      <div class="user">
+        <img src="https://i.pravatar.cc/150?u=jeanette" alt="Jeanette">
+        <div class="user-info">
+          <h3>Jeanette Harmon</h3>
+          <p>Verified Graduate</p>
+        </div>
+      </div>
+      <div class="headline">An overall wonderful and rewarding experience</div>
+      <div class="quote">“ Thank you for the wonderful experience! I now have a job I really enjoy, and make a good living while doing something I love. ”</div>
+    </div>
+
+    <div class="card card-dark-blue">
+      <div class="user">
+        <img src="https://i.pravatar.cc/150?u=patrick" alt="Patrick">
+        <div class="user-info">
+          <h3>Patrick Abrams</h3>
+          <p>Verified Graduate</p>
+        </div>
+      </div>
+      <div class="headline">Awesome teaching support from TAs who did the bootcamp themselves...</div>
+      <div class="quote">“ The staff seem genuinely concerned about my progress which I find really refreshing. The program gave me the confidence necessary to be able to go out in the world... ”</div>
+    </div>
+  </div>
+
 </body>
 </html>
