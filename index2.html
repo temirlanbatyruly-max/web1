@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>College Timetable</title>
+  <style>
+    :root {
+      --bg-light: #f4f7f9;
+      --border-color: #dee2e6;
+      --text-main: #333;
+      /* Colors from the image */
+      --web-prog: #a9a9a9; /* Gray */
+      --kat: #ffcc99;      /* Peach */
+      --physical: #7d8cc4; /* Blue */
+      --business: #ffb366; /* Orange */
+      --volunteer: #d9adad;/* Muted Red */
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--bg-light);
+      margin: 20px;
+      color: var(--text-main);
+    }
+
+    .timetable-container {
+      display: grid;
+      /* 1 column for days, then 10 columns for time slots */
+      grid-template-columns: 50px repeat(10, 1fr);
+      background: white;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    /* Header styling (Times) */
+    .time-slot {
+      background: #fff;
+      padding: 10px;
+      text-align: center;
+      border-bottom: 2px solid var(--border-color);
+      border-left: 1px solid var(--border-color);
+      font-size: 11px;
+      font-weight: bold;
+    }
+
+    .time-number { font-size: 16px; display: block; margin-bottom: 2px; }
+
+    /* Day labels (Пн, Вт, etc) */
+    .day-label {
+      grid-column: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      border-bottom: 1px solid var(--border-color);
+      background: #fafafa;
+    }
+
+    /* The actual class blocks */
+    .subject {
+      padding: 10px;
+      margin: 4px;
+      border-radius: 4px;
+      font-size: 12px;
+      font-weight: 600;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: transform 0.1s;
+      cursor: pointer;
+    }
+
+    .subject:hover {
+      filter: brightness(0.9);
+      transform: scale(1.02);
+    }
+
+    .teacher {
+      font-size: 10px;
+      font-weight: normal;
+      margin-top: 5px;
+      opacity: 0.8;
+    }
+
+    /* Color Classes */
+    .web-prog { background-color: var(--web-prog); }
+    .kat { background-color: var(--kat); }
+    .phys { background-color: var(--physical); color: white; }
+    .business { background-color: var(--business); }
+    .vol { background-color: var(--volunteer); }
+
+    /* Grid Positioning Logic */
+    /* span X allows one block to cover multiple time slots */
+    .span-2 { grid-column: span 2; }
+    .span-3 { grid-column: span 3; }
+
+    /* Empty spaces helper */
+    .empty { grid-column: span 1; }
+
+  </style>
+</head>
+<body>
+
+  <h2 style="text-align:center;">2F-4 - EE</h2>
+
+  <div class="timetable-container">
+    <div></div> <div class="time-slot"><span class="time-number">1</span>8:30-9:15</div>
+    <div class="time-slot"><span class="time-number">2</span>9:20-10:05</div>
+    <div class="time-slot"><span class="time-number">3</span>10:20-11:05</div>
+    <div class="time-slot"><span class="time-number">4</span>11:10-11:55</div>
+    <div class="time-slot"><span class="time-number">5</span>12:00-12:45</div>
+    <div class="time-slot"><span class="time-number">6</span>12:50-13:35</div>
+    <div class="time-slot"><span class="time-number">7</span>13:40-14:25</div>
+    <div class="time-slot"><span class="time-number">8</span>14:35-15:20</div>
+    <div class="time-slot"><span class="time-number">9</span>15:25-16:10</div>
+    <div class="time-slot"><span class="time-number">10</span>16:15-17:00</div>
+
+    <div class="day-label">Пн</div>
+    <div class="subject web-prog span-2">Web-бағдарламалау <span class="teacher">Тажібаева Жансая</span></div>
+    <div class="subject business">Әлеуметтену <span class="teacher">Аққай Эмре</span></div>
+    <div class="subject web-prog">Web-бағдарламалау</div>
+    <div class="subject kat">Кат <span class="teacher">Қанатқызы Зейнеп</span></div>
+    <div class="empty"></div>
+    <div class="subject web-prog span-2">Web-бағдарламалау</div>
+    <div class="empty"></div>
+    <div class="empty"></div>
+
+    <div class="day-label">Вт</div>
+    <div class="empty"></div>
+    <div class="subject web-prog span-3">Web-бағдарламалау <span class="teacher">Тажібаева Жансая</span></div>
+    <div class="subject kat span-2">Кат <span class="teacher">Қанатқызы Зейнеп</span></div>
+    <div class="empty"></div>
+    <div class="subject web-prog span-2">Web-бағдарламалау</div>
+    <div class="empty"></div>
+
+    <div class="day-label">Cp</div>
+    <div class="subject web-prog span-2">Web-бағдарламалау</div>
+    <div class="subject business span-2">Іскерлік мақсатта шетел тілі</div>
+    <div class="subject phys span-2">Дене қасиеттерін дамыту</div>
+    <div class="empty"></div>
+    <div class="subject web-prog span-3">Web-бағдарламалау</div>
+  </div>
+
+  <script>
+    // Simple script to log which class you clicked
+    document.querySelectorAll('.subject').forEach(item => {
+      item.addEventListener('click', () => {
+        const text = item.innerText.split('\n')[0];
+        console.log("Viewing details for: " + text);
+      });
+    });
+  </script>
+
+</body>
+</html>
